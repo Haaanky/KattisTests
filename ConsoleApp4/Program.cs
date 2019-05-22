@@ -17,7 +17,6 @@ class GFG
         for (int i = 0; i < n; i++)
         {
             tmp[i] = p[i];
-            //Console.Write(p[i] + " ");
         }
         //Console.WriteLine();
         return tmp;
@@ -26,16 +25,16 @@ class GFG
     // Function to generate all unique partitions of an integer 
     static void printAllUniqueParts(int targetNumber)
     {
-        var baseOfPowers = 5;
+        var baseOfPowers = 3;
         var power = 0;
         var powerTo = new List<int>();
-        while (powerTo.LastOrDefault() < targetNumber)
+        do
         {
             powerTo.Add((int)Math.Pow(baseOfPowers, power));
             power++;
-        }
-        if (powerTo.LastOrDefault() > targetNumber)
-            powerTo.Remove(powerTo.Last());
+        } while (powerTo.LastOrDefault() < targetNumber);
+        //if (powerTo.LastOrDefault() > targetNumber)
+        //    powerTo.Remove(powerTo.Last());
 
         // An array to store a partition 
         int[] partionArray = new int[targetNumber];
@@ -56,7 +55,12 @@ class GFG
         {
 
             // print current partition 
-            var tmp = printArray(partionArray, indexPosition + 1);
+            //var tmp = printArray(partionArray, indexPosition + 1);
+            var tmp = new int[indexPosition + 1];
+            for (int i = 0; i < indexPosition + 1; i++)
+            {
+                tmp[i] = partionArray[i];
+            }
             // Generate next partition 
 
             // Find the rightmost non-one value in p[]. Also, update 
@@ -68,6 +72,7 @@ class GFG
             //}
             //var store = powerTo.ToArray().Intersect(tmp);
             var store = tmp.Where(x => powerTo.Contains(x));
+            //var store = partionArray.Where(x => powerTo.Contains(x));
 
             if (store.Sum() == targetNumber)
             {
@@ -120,7 +125,7 @@ class GFG
         //printAllUniqueParts(3);
 
         Console.WriteLine("All Unique Partitions of 9");
-        printAllUniqueParts(75);
+        printAllUniqueParts(9);
         Console.WriteLine(count);
         //var tmp = new List<int[]>();
         //var count = 0;
