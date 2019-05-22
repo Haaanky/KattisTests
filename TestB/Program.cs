@@ -8,7 +8,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        CountIntPartitions(3, 9);
+        Console.WriteLine(CountIntPartitions(3, 47));
         string input;
         int numberOfDataSets = 0;
         //int numberOfDataSets = 0;
@@ -23,7 +23,7 @@ class Program
                 var set = split[0];
                 var baseOfPowers = int.Parse(split[1]);
                 var number = int.Parse(split[2]);
-                
+
                 var result = CountIntPartitions(baseOfPowers, number);
                 Console.WriteLine($"{set} {result}");
             }
@@ -35,30 +35,58 @@ class Program
         var sum = 1;
         int remainder = number % baseOfPowers;
         int divided = number / baseOfPowers;
-        sum += divided;
+        //sum += divided;
         var test2 = new List<int>();
         var test = new int[number, test2.Count()];
         var test3 = new List<int[]>();
-        for (int i = 0; i < divided; i++)
+        var power = 0;
+        var powerTo = new List<int>();
+        while (powerTo.LastOrDefault() < number)
         {
-            for (int j = 0; j < number; j++)
+            powerTo.Add((int)Math.Pow(baseOfPowers, power));
+            //sum += powerTo[power] / baseOfPowers;
+            power++;
+            //Console.WriteLine(powerTo[power]);
+        }
+        if (powerTo.LastOrDefault() > number)
+            powerTo.Remove(powerTo.Last());
+
+        //for (int i = 0; i < powerTo.Count; i++)
+        //{
+        //    test3.Add(new int[powerTo[i]]);
+        //    for (int j = 0; j < number; j++)
+        //    {
+        //        Console.Write(test3[i][j] = powerTo[i]);
+        //    }
+        //}
+
+        var baseArr = new int[number];
+        for (int i = 0; i < baseArr.Length; i++)
+        {
+            baseArr[i] = 1;
+        }
+
+        while (true)
+        {
+            for (int i = 0; i < baseArr.Length; i++)
             {
-                test3.Add(new int[number]);
-                //test3[j][1] = ;
+                baseArr[i] *= powerTo[i];
             }
+            if (baseArr.Sum() == number)
+                test3.Add(baseArr);
         }
 
         //number -= divided;
         //sum += number;
-        if (divided == baseOfPowers)
-            sum++;
+        //if (divided == baseOfPowers)
+        //    sum++;
         //sum += remainder;
         //sum += divided;
         for (int i = 0; i < divided /*+ remainder*/; i++)
         {
             //number -= divided;
             //sum += number;
-            sum++;
+            //sum++;
             //divided = number / baseOfPowers;
             //sum += divided;
         }
