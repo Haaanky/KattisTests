@@ -57,7 +57,6 @@ class GFG
 
             // print current partition 
             var tmp = printArray(partionArray, indexPosition + 1);
-            partitionsList.Add(tmp);
             // Generate next partition 
 
             // Find the rightmost non-one value in p[]. Also, update 
@@ -121,7 +120,7 @@ class GFG
         //printAllUniqueParts(3);
 
         Console.WriteLine("All Unique Partitions of 9");
-        printAllUniqueParts(123);
+        printAllUniqueParts(75);
         Console.WriteLine(count);
         //var tmp = new List<int[]>();
         //var count = 0;
@@ -138,5 +137,3 @@ class GFG
         //}
     }
 }
-
-// This code is contributed by Sam007. 
