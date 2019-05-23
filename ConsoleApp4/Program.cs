@@ -6,7 +6,7 @@ using System.Linq;
 
 class GFG
 {
-    static List<int[]> partitionsList = new List<int[]>();
+    //static List<int[]> partitionsList = new List<int[]>();
     static int count = 0;
 
     // Function to print an array p[] 
@@ -23,9 +23,8 @@ class GFG
     }
 
     // Function to generate all unique partitions of an integer 
-    static void printAllUniqueParts(int targetNumber)
+    static void printAllUniqueParts(int baseOfPowers, int targetNumber)
     {
-        var baseOfPowers = 3;
         var power = 0;
         var powerTo = new List<int>();
         do
@@ -51,12 +50,13 @@ class GFG
         // partition, then generates next 
         // partition. The loop stops when 
         // the current partition has all 1s 
+        var tmp = new int[targetNumber];
         while (true)
         {
 
             // print current partition 
             //var tmp = printArray(partionArray, indexPosition + 1);
-            var tmp = new int[indexPosition + 1];
+            Array.Clear(tmp, 0, targetNumber);
             for (int i = 0; i < indexPosition + 1; i++)
             {
                 tmp[i] = partionArray[i];
@@ -125,7 +125,7 @@ class GFG
         //printAllUniqueParts(3);
 
         Console.WriteLine("All Unique Partitions of 9");
-        printAllUniqueParts(9);
+        printAllUniqueParts(5, 123);
         Console.WriteLine(count);
         //var tmp = new List<int[]>();
         //var count = 0;
