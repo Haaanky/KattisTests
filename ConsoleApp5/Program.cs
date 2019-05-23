@@ -10,7 +10,7 @@ namespace ConsoleApp5
     {
         static void Main(string[] args)
         {
-            Cpp();
+            //Cpp();
             ProperMethod();
         }
 
@@ -18,8 +18,7 @@ namespace ConsoleApp5
         {
             string input;
             int numberOfDataSets = 0;
-            //int numberOfDataSets = 0;
-            //int set = 0;
+
             while ((input = Console.ReadLine()) != null)
             {
                 string[] split = input.Split(' ');
@@ -29,9 +28,26 @@ namespace ConsoleApp5
                 {
                     var set = split[0];
                     var baseOfPowers = int.Parse(split[1]);
-                    var number = int.Parse(split[2]);
-                    var result = 0;
+                    var targetNumber = int.Parse(split[2]);
+                    var power = 0;
+                    var powerTo = new List<int>();
+                    do
+                    {
+                        powerTo.Add((int)Math.Pow(baseOfPowers, power));
+                        power++;
+                    } while (powerTo.LastOrDefault() < targetNumber);
 
+                    int[] partition = new int[targetNumber + 1];
+                    partition[0] = 1;
+
+                    for (int i = 0; i < powerTo.Count; i++)
+                    {
+                        for (int j = powerTo[i]; j <= targetNumber; j++)
+                        {
+                            partition[j] += partition[j - powerTo[i]];
+                        }
+                    }
+                    var result = partition[partition.Length - 1];
                     Console.WriteLine($"{set} {result}");
                 }
             }
