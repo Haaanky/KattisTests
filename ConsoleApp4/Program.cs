@@ -8,6 +8,32 @@ class GFG
 {
     //static List<int[]> partitionsList = new List<int[]>();
     static int count = 0;
+    // Driver program 
+    public static void Main()
+    {
+        //Console.WriteLine("All Unique Partitions of 2");
+        //printAllUniqueParts(2);
+
+        //Console.WriteLine("All Unique Partitions of 3");
+        //printAllUniqueParts(3);
+
+        Console.WriteLine("All Unique Partitions of 9");
+        printAllUniqueParts(5, 123);
+        Console.WriteLine(count);
+        //var tmp = new List<int[]>();
+        //var count = 0;
+        //foreach (var item in partitionsList)
+        //{
+        //    if (item.Any(i => i == 3))
+        //        count++;
+
+        //    //tmp.Add(item.Where(i => i == i / 3).ToArray());
+        //    //for (int i = 0; i < item.Length; i++)
+        //    //{
+        //    //    item[i] 
+        //    //}
+        //}
+    }
 
     // Function to print an array p[] 
     // of size n 
@@ -53,7 +79,6 @@ class GFG
         var tmp = new int[targetNumber];
         while (true)
         {
-
             // print current partition 
             //var tmp = printArray(partionArray, indexPosition + 1);
             Array.Clear(tmp, 0, targetNumber);
@@ -113,32 +138,5 @@ class GFG
             indexPosition++;
 
         }
-    }
-
-    // Driver program 
-    public static void Main()
-    {
-        //Console.WriteLine("All Unique Partitions of 2");
-        //printAllUniqueParts(2);
-
-        //Console.WriteLine("All Unique Partitions of 3");
-        //printAllUniqueParts(3);
-
-        Console.WriteLine("All Unique Partitions of 9");
-        printAllUniqueParts(5, 123);
-        Console.WriteLine(count);
-        //var tmp = new List<int[]>();
-        //var count = 0;
-        //foreach (var item in partitionsList)
-        //{
-        //    if (item.Any(i => i == 3))
-        //        count++;
-
-        //    //tmp.Add(item.Where(i => i == i / 3).ToArray());
-        //    //for (int i = 0; i < item.Length; i++)
-        //    //{
-        //    //    item[i] 
-        //    //}
-        //}
     }
 }
