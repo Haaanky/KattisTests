@@ -1,26 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 class Program
 {
     static void Main(string[] args)
     {
-        string input;
+        string line;
         int i = 0;
         int translatorIndex = 0;
         Translator[] translatorArray = new Translator[0];
         int languagesSpoken = 0;
         int hiredTranslators = 0;
 
-        while ((input = Console.ReadLine()) != null)
+        while ((line = Console.ReadLine()) != string.Empty)
         {
             if (hiredTranslators % 2 != 0)
             { Console.WriteLine("impossible"); return; }
 
-            var split = input.Split();
+            var split = line.Split();
             if (i == 0)
             {
                 languagesSpoken = int.Parse(split[0]);
@@ -93,13 +91,13 @@ class Program
         }
         foreach (var item in tmpArray)
         {
-            Console.WriteLine($"{item} ");
+            Console.WriteLine($"{item[0]} {item[1]}");
         }
         Console.WriteLine();
     }
 }
 
-internal class Translator
+class Translator
 {
     public int ID { get; set; }
     public int FirstLanguage { get; set; }
