@@ -21,7 +21,7 @@ namespace ConsoleApp5
 
             while ((input = Console.ReadLine()) != null)
             {
-                string[] split = input.Split(' ');
+                string[] split = input.Split();
                 if (numberOfDataSets == 0)
                     numberOfDataSets = int.Parse(split[0]);
                 else
