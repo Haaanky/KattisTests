@@ -13,7 +13,7 @@ class Program
         int languagesSpoken = 0;
         int hiredTranslators = 0;
 
-        while ((line = Console.ReadLine()) != string.Empty)
+        while ((line = Console.ReadLine()) != null)
         {
             if (hiredTranslators % 2 != 0)
             { Console.WriteLine("impossible"); return; }
@@ -93,7 +93,7 @@ class Program
         {
             Console.WriteLine($"{item[0]} {item[1]}");
         }
-        Console.WriteLine();
+        Environment.Exit(0);
     }
 }
 
