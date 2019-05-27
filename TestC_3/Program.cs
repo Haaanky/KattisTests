@@ -6,24 +6,19 @@ class Program
 {
     static void Main(string[] args)
     {
-        string line;
+        string input;
         int i = 0;
         int translatorIndex = 0;
         Translator[] translatorArray = new Translator[0];
         int languagesSpoken = 0;
         int hiredTranslators = 0;
 
-        //for (int o = 0; o < length; o++)
-        //{
-        //    line = Console.ReadLine()
-        //}
-        do
+        while ((input = Console.ReadLine()) != null)
         {
             if (hiredTranslators % 2 != 0)
             { Console.WriteLine("impossible"); return; }
 
-            line = Console.ReadLine();
-            string[] split = line.Split();
+            var split = input.Split();
             if (i == 0)
             {
                 languagesSpoken = int.Parse(split[0]);
@@ -41,32 +36,7 @@ class Program
                 translatorIndex++;
             }
             i++;
-        } while (i <= hiredTranslators);
-
-        //while ((line = Console.ReadLine()) != null)
-        //{
-        //    if (hiredTranslators % 2 != 0)
-        //    { Console.WriteLine("impossible"); return; }
-
-        //    var split = line.Split();
-        //    if (i == 0)
-        //    {
-        //        languagesSpoken = int.Parse(split[0]);
-        //        hiredTranslators = int.Parse(split[1]);
-        //        translatorArray = new Translator[hiredTranslators];
-        //    }
-        //    else
-        //    {
-        //        translatorArray[translatorIndex] = new Translator
-        //        {
-        //            ID = translatorIndex,
-        //            FirstLanguage = int.Parse(split[0]),
-        //            SecondLanguage = int.Parse(split[1])
-        //        };
-        //        translatorIndex++;
-        //    }
-        //    i++;
-        //}
+        }
 
         var matchArr = new List<string>();
         string numbersToContain = string.Empty;
@@ -108,31 +78,7 @@ class Program
             tmpListMatches = matchArr.ToList();
             for (int j = 0; tmpArray.Any(x => x == null); j++)
             {
-                //tmpListMatches = matchArr.ToList();
-                //    for (int k = 0; k < tmpArray.Length; k++)
-                //    {
-                //        tmpArray[k] = tmpListMatches[j];
-                //        tmpListMatches.RemoveAll(x => x.Contains(tmpArray[j][0]) || x.Contains(tmpArray[j][1]));
-                //        if (tmpListMatches.Count == 0)
-                //            break;
-                //    }
-
-                //try
-                //{
-                //    tmpArray[j] = tmpListMatches[index];
-                //}
-                //catch (Exception)
-                //{
-                //    break;
-                //}
-                var rand = new Random();
-                tmpArray[j] = tmpListMatches[rand.Next(0, tmpListMatches.Count)];
-
-                //if (index > 0 && j == 0)
-                //    tmpArray[j] = tmpListMatches[index];
-                //else
-                //    tmpArray[j] = tmpListMatches[0];
-
+                tmpArray[j] = tmpListMatches[index];
                 tmpListMatches.RemoveAll(x => x.Contains(tmpArray[j][0]) || x.Contains(tmpArray[j][1]));
                 if (tmpListMatches.Count == 0)
                     break;
@@ -143,12 +89,11 @@ class Program
                 index++;
             }
         }
-
         foreach (var item in tmpArray)
         {
             Console.WriteLine($"{item[0]} {item[1]}");
         }
-        Environment.Exit(0);
+        Console.WriteLine();
     }
 }
 

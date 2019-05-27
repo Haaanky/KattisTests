@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestC_2", "TestC_2\TestC_2.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestB_3", "TestB_3\TestB_3.csproj", "{69EA3AC7-1254-4157-82D4-2B1C68126C79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestC_3", "TestC_3\TestC_3.csproj", "{B6FB3FD8-39CC-43CB-BD40-7C3FC60BCE52}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
