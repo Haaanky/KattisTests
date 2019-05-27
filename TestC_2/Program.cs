@@ -79,18 +79,34 @@ class Program
         {
             for (int k = 1; k <= languagesSpoken; k++)
             {
+                //if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
+                //{
+                //    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
+                //}
+                //if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
+                //{
+                //    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
+                //}
+                //if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
+                //{
+                //    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
+                //}
+                //if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
+                //{
+                //    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
+                //}
                 if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
                 {
                     matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
-                }
+                } else
                 if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
                 {
                     matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
-                }
+                } else
                 if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
                 {
                     matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
-                }
+                } else
                 if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
                 {
                     matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());

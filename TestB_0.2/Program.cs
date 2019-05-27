@@ -16,8 +16,6 @@ namespace TestB_0._2
             var power = 0;
             var powerTo = new List<int>();
             var partitionArray = new int[targetNumber];
-            var count = 0;
-            var index = 0;
             var tempListToPrint = new List<int[]>();
             do
             {

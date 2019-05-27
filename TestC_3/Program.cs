@@ -8,77 +8,80 @@ class Program
     {
         string input;
         int i = 0;
-        int translatorIndex = 0;
         Translator[] translatorArray = new Translator[0];
-        int languagesSpoken = 0;
+        //int languagesSpoken = 0;
         int hiredTranslators = 0;
 
         while ((input = Console.ReadLine()) != null)
         {
-            if (hiredTranslators % 2 != 0)
-            { Console.WriteLine("impossible"); return; }
 
             var split = input.Split();
-            if (i == 0)
+            if (hiredTranslators == 0)
             {
-                languagesSpoken = int.Parse(split[0]);
+                //languagesSpoken = int.Parse(split[0]);
                 hiredTranslators = int.Parse(split[1]);
+                if (hiredTranslators % 2 != 0)
+                { Console.WriteLine("impossible"); return; }
                 translatorArray = new Translator[hiredTranslators];
             }
             else
             {
-                translatorArray[translatorIndex] = new Translator
+                translatorArray[i] = new Translator
                 {
-                    ID = translatorIndex,
+                    ID = i.ToString(),
                     FirstLanguage = int.Parse(split[0]),
                     SecondLanguage = int.Parse(split[1])
                 };
-                translatorIndex++;
+                i++;
             }
-            i++;
         }
 
-        var matchArr = new List<string>();
+        var matchArr = new List<TranslatorPair>();
 
-        for (int j = 0; j <= languagesSpoken; j++)
+        for (int j = 0; j < hiredTranslators; j++)
         {
-            for (int k = 1; k <= languagesSpoken; k++)
+            for (int k = 0; k < hiredTranslators; k++)
             {
-                if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
-                {
-                    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
-                }
+                        //if (!matchArr.Contains(translatorArray[k].FirstLanguage.ToString() + translatorArray[k].SecondLanguage.ToString()) || !matchArr.Contains(translatorArray[k].SecondLanguage.ToString() + translatorArray[k].FirstLanguage.ToString()))
+                if (!matchArr.Contains(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] }))
+                    {
+                    if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
+                    {
+                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                        //matchArr.Add(translatorArray[j].ID + translatorArray[k].ID);
+                    }
+                    else
                 if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
-                {
-                    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
-                }
+                    {
+                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                        //matchArr.Add(translatorArray[j].ID + translatorArray[k].ID);
+                    }
+                    else
                 if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
-                {
-                    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
-                }
+                    {
+                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                        //matchArr.Add(translatorArray[j].ID + translatorArray[k].ID);
+                    }
+                    else
                 if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
-                {
-                    matchArr.Add(translatorArray[j].ID.ToString() + translatorArray[k].ID.ToString());
+                    {
+                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                        //matchArr.Add(translatorArray[j].ID + translatorArray[k].ID);
+                    }
                 }
             }
         }
 
-        matchArr = matchArr.Distinct().ToList().Where(x => x[0] != x[1]).ToList();
+        matchArr = matchArr.Where(x => x.Left.ID != x.Right.ID).ToList();
+        //matchArr = matchArr.Distinct().Where(x => x[0] != x[1]).ToList();
 
-        //var tmpListMatches = new List<string>();
         var tmpListMatches = matchArr.ToList();
-        var tmpArray = new string[hiredTranslators / 2];
+        var tmpArray = new TranslatorPair[hiredTranslators / 2];
         var index = 0;
         var rnd = new Random();
-        var triedCombos = new List<string>();
+        var triedCombos = new List<TranslatorPair>();
 
-        //while (tmpArray.Any(x => x == null))
-        //{
-        //    tmpListMatches = matchArr.ToList();
-        triedCombos = matchArr.ToList();
-        //tmpListMatches = tmpListMatches.Except(triedCombos).ToList();
-
-        for (int j = 0; tmpArray.Any(x => x == null); j++)
+        for (int j = 0; tmpArray.Any(x => x == null) && j < tmpArray.Length; j++)
         {
             if (tmpListMatches.Count == 0)
             {
@@ -88,38 +91,47 @@ class Program
                     tmpArray[k] = null;
                 }
 
-                tmpListMatches.RemoveAll(x => x.Contains(tmpArray[0][0]) || x.Contains(tmpArray[0][1]));
+                tmpListMatches.RemoveAll(x => x.Left.ID.Contains(tmpArray[0].Left.ID) || x.Right.ID.Contains(tmpArray[0].Right.ID));
                 tmpListMatches = tmpListMatches.Except(triedCombos).ToList();
                 j = 1;
 
                 if (tmpListMatches.Count == 0)
                 {
                     tmpListMatches = matchArr.ToList();
-                    j = 0;
                     triedCombos.RemoveAll(x => true);
+                    j = 0;
+                    index++;
+                    if (index >= matchArr.Count)
+                        break;
                 }
             }
             if (j == 0)
-                tmpArray[j] = tmpListMatches[index++];
+                tmpArray[j] = tmpListMatches[index];
             else
             {
-                tmpArray[j] = tmpListMatches[0];
-                //tmpArray[j] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
+                //tmpArray[j] = tmpListMatches[0];
+                tmpArray[j] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
                 triedCombos.Add(tmpArray[j]);
             }
-            tmpListMatches.RemoveAll(x => x.Contains(tmpArray[j][0]) || x.Contains(tmpArray[j][1]));
+            tmpListMatches.RemoveAll(x => x.Left.ID.Contains(tmpArray[j].Left.ID) || x.Right.ID.Contains(tmpArray[j].Right.ID));
         }
-        //}
         foreach (var item in tmpArray)
         {
-            Console.WriteLine($"{item[0]} {item[1]}");
+            if (item != null)
+                Console.WriteLine($"{item.Left.ID} {item.Right.ID}");
         }
     }
 }
 
+internal class TranslatorPair
+{
+    public Translator Left { get; set; }
+    public Translator Right { get; set; }
+}
+
 class Translator
 {
-    public int ID { get; set; }
+    public string ID { get; set; }
     public int FirstLanguage { get; set; }
     public int SecondLanguage { get; set; }
 }
