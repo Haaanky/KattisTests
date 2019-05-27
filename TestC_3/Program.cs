@@ -39,12 +39,7 @@ class Program
         }
 
         var matchArr = new List<string>();
-        string numbersToContain = string.Empty;
 
-        for (int k = 0; k < languagesSpoken; k++)
-        {
-            numbersToContain += k.ToString();
-        }
         for (int j = 0; j <= languagesSpoken; j++)
         {
             for (int k = 1; k <= languagesSpoken; k++)
@@ -70,30 +65,55 @@ class Program
 
         matchArr = matchArr.Distinct().ToList().Where(x => x[0] != x[1]).ToList();
 
+        //var tmpListMatches = new List<string>();
+        var tmpListMatches = matchArr.ToList();
         var tmpArray = new string[hiredTranslators / 2];
-        var tmpListMatches = new List<string>();
         var index = 0;
-        while (tmpArray.Any(x => x == null))
-        {
-            tmpListMatches = matchArr.ToList();
-            for (int j = 0; tmpArray.Any(x => x == null); j++)
-            {
-                tmpArray[j] = tmpListMatches[index];
-                tmpListMatches.RemoveAll(x => x.Contains(tmpArray[j][0]) || x.Contains(tmpArray[j][1]));
-                if (tmpListMatches.Count == 0)
-                    break;
-            }
+        var rnd = new Random();
+        var triedCombos = new List<string>();
 
-            if (tmpArray.Any(x => x == null))
+        //while (tmpArray.Any(x => x == null))
+        //{
+        //    tmpListMatches = matchArr.ToList();
+        triedCombos = matchArr.ToList();
+        //tmpListMatches = tmpListMatches.Except(triedCombos).ToList();
+
+        for (int j = 0; tmpArray.Any(x => x == null); j++)
+        {
+            if (tmpListMatches.Count == 0)
             {
-                index++;
+                tmpListMatches = matchArr.ToList();
+                for (int k = 1; k < tmpArray.Length; k++)
+                {
+                    tmpArray[k] = null;
+                }
+
+                tmpListMatches.RemoveAll(x => x.Contains(tmpArray[0][0]) || x.Contains(tmpArray[0][1]));
+                tmpListMatches = tmpListMatches.Except(triedCombos).ToList();
+                j = 1;
+
+                if (tmpListMatches.Count == 0)
+                {
+                    tmpListMatches = matchArr.ToList();
+                    j = 0;
+                    triedCombos.RemoveAll(x => true);
+                }
             }
+            if (j == 0)
+                tmpArray[j] = tmpListMatches[index++];
+            else
+            {
+                tmpArray[j] = tmpListMatches[0];
+                //tmpArray[j] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
+                triedCombos.Add(tmpArray[j]);
+            }
+            tmpListMatches.RemoveAll(x => x.Contains(tmpArray[j][0]) || x.Contains(tmpArray[j][1]));
         }
+        //}
         foreach (var item in tmpArray)
         {
             Console.WriteLine($"{item[0]} {item[1]}");
         }
-        Console.WriteLine();
     }
 }
 
