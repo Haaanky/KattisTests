@@ -28,7 +28,7 @@ class Program
             {
                 translatorArray[i] = new Translator
                 {
-                    ID = i.ToString(),
+                    ID = i,
                     FirstLanguage = int.Parse(split[0]),
                     SecondLanguage = int.Parse(split[1])
                 };
@@ -42,9 +42,9 @@ class Program
         {
             for (int k = 0; k < hiredTranslators; k++)
             {
-                        //if (!matchArr.Contains(translatorArray[k].FirstLanguage.ToString() + translatorArray[k].SecondLanguage.ToString()) || !matchArr.Contains(translatorArray[k].SecondLanguage.ToString() + translatorArray[k].FirstLanguage.ToString()))
+                //if (!matchArr.Contains(translatorArray[k].FirstLanguage.ToString() + translatorArray[k].SecondLanguage.ToString()) || !matchArr.Contains(translatorArray[k].SecondLanguage.ToString() + translatorArray[k].FirstLanguage.ToString()))
                 if (!matchArr.Contains(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] }))
-                    {
+                {
                     if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
                     {
                         matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
@@ -73,54 +73,56 @@ class Program
         }
 
         matchArr = matchArr.Where(x => x.Left.ID != x.Right.ID).ToList();
-        //matchArr = matchArr.Distinct().Where(x => x[0] != x[1]).ToList();
 
         var tmpListMatches = matchArr.ToList();
         var tmpArray = new TranslatorPair[hiredTranslators / 2];
         var index = 0;
         var rnd = new Random();
         var triedCombos = new List<TranslatorPair>();
+        int l = 0;
 
-        for (int j = 0; tmpArray.Any(x => x == null) && j < tmpArray.Length; j++)
+        for (l = 0; tmpArray.Any(x => x == null) && l < tmpArray.Length; l++)
         {
             if (tmpListMatches.Count == 0)
             {
                 tmpListMatches = matchArr.ToList();
-                for (int k = 1; k < tmpArray.Length; k++)
+                for (int m = 1; m < tmpArray.Length; m++)
                 {
-                    tmpArray[k] = null;
+                    tmpArray[m] = null;
                 }
 
-                tmpListMatches.RemoveAll(x => x.Left.ID.Contains(tmpArray[0].Left.ID) || x.Right.ID.Contains(tmpArray[0].Right.ID));
+                tmpListMatches.RemoveAll(x => x.Left.ID.Equals(tmpArray[0].Left.ID) || x.Right.ID.Equals(tmpArray[0].Right.ID) || x.Left.ID.Equals(tmpArray[0].Right.ID) || x.Right.ID.Equals(tmpArray[0].Left.ID));
                 tmpListMatches = tmpListMatches.Except(triedCombos).ToList();
-                j = 1;
+                l = 1;
 
                 if (tmpListMatches.Count == 0)
                 {
                     tmpListMatches = matchArr.ToList();
                     triedCombos.RemoveAll(x => true);
-                    j = 0;
+                    l = 0;
                     index++;
                     if (index >= matchArr.Count)
                         break;
                 }
             }
-            if (j == 0)
-                tmpArray[j] = tmpListMatches[index];
+            if (l == 0)
+                tmpArray[l] = tmpListMatches[index];
             else
             {
                 //tmpArray[j] = tmpListMatches[0];
-                tmpArray[j] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
-                triedCombos.Add(tmpArray[j]);
+                tmpArray[l] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
+                triedCombos.Add(tmpArray[l]);
             }
-            tmpListMatches.RemoveAll(x => x.Left.ID.Contains(tmpArray[j].Left.ID) || x.Right.ID.Contains(tmpArray[j].Right.ID));
+            var test2 = tmpListMatches.RemoveAll(x => x.Left.ID == tmpArray[l].Left.ID || x.Right.ID == tmpArray[l].Right.ID || x.Left.ID == tmpArray[l].Right.ID || x.Right.ID == tmpArray[l].Left.ID);
         }
+
         foreach (var item in tmpArray)
         {
             if (item != null)
                 Console.WriteLine($"{item.Left.ID} {item.Right.ID}");
         }
     }
+
 }
 
 internal class TranslatorPair
@@ -131,7 +133,7 @@ internal class TranslatorPair
 
 class Translator
 {
-    public string ID { get; set; }
+    public int ID { get; set; }
     public int FirstLanguage { get; set; }
     public int SecondLanguage { get; set; }
 }
