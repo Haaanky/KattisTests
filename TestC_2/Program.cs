@@ -78,7 +78,31 @@ class Program
             tmpListMatches = matchArr.ToList();
             for (int j = 0; tmpArray.Any(x => x == null); j++)
             {
-                tmpArray[j] = tmpListMatches[index];
+                //tmpListMatches = matchArr.ToList();
+                //    for (int k = 0; k < tmpArray.Length; k++)
+                //    {
+                //        tmpArray[k] = tmpListMatches[j];
+                //        tmpListMatches.RemoveAll(x => x.Contains(tmpArray[j][0]) || x.Contains(tmpArray[j][1]));
+                //        if (tmpListMatches.Count == 0)
+                //            break;
+                //    }
+
+                //try
+                //{
+                //    tmpArray[j] = tmpListMatches[index];
+                //}
+                //catch (Exception)
+                //{
+                //    break;
+                //}
+                var rand = new Random();
+                tmpArray[j] = tmpListMatches[rand.Next(0, tmpListMatches.Count)];
+
+                //if (index > 0 && j == 0)
+                //    tmpArray[j] = tmpListMatches[index];
+                //else
+                //    tmpArray[j] = tmpListMatches[0];
+
                 tmpListMatches.RemoveAll(x => x.Contains(tmpArray[j][0]) || x.Contains(tmpArray[j][1]));
                 if (tmpListMatches.Count == 0)
                     break;
@@ -89,6 +113,7 @@ class Program
                 index++;
             }
         }
+
         foreach (var item in tmpArray)
         {
             Console.WriteLine($"{item[0]} {item[1]}");

@@ -29,10 +29,9 @@ namespace TestB_0._2
             {
                 for (int i = 0; i < powerTo.Count; i++)
                 {
-                    var x = targetNumber / powerTo[i];
-                    for (index = 0; index < targetNumber; index++)
+                    for (int j = 0; j < targetNumber; j++)
                     {
-                        partitionArray[index] = powerTo[i];
+                        partitionArray[j] = powerTo[i];
                         if (partitionArray.Sum() == targetNumber)
                             //count++;
                             tempListToPrint.Add(partitionArray.ToArray());

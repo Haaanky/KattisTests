@@ -37,17 +37,22 @@ namespace ConsoleApp5
                         power++;
                     } while (powerTo.LastOrDefault() < targetNumber);
 
-                    int[] partition = new int[targetNumber + 1];
+                    int[] partition = new int[targetNumber];
                     partition[0] = 1;
+
+                    //var iterationsMax = targetNumber;
+                    int result = 0;
 
                     for (int i = 0; i < powerTo.Count; i++)
                     {
                         for (int j = powerTo[i]; j <= targetNumber; j++)
                         {
-                            partition[j] += partition[j - powerTo[i]];
+                            if (j != targetNumber)
+                                partition[j] += partition[j - powerTo[i]];
+                            else
+                                result += partition[j - powerTo[i]];
                         }
                     }
-                    var result = partition[partition.Length - 1];
                     Console.WriteLine($"{set} {result}");
                 }
             }
@@ -71,7 +76,6 @@ namespace ConsoleApp5
                 }
 
                 uint[] r = new uint[targetNumber + 1];
-                //memset(r, 0, sizeof(uint));
                 r[0] = 1;
 
                 for (int i = 0; i < s; i++)

@@ -1,6 +1,4 @@
-﻿// C# program to generate all unique 
-// partitions of an integer 
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 
