@@ -80,8 +80,8 @@ class Program
             //tmpListMatches.Add(matchArr.First(x => x.Left + x.Left == matchArr[z].Left + matchArr[z].Right));
             //tmpListMatches = matchArr.Where(x => x.Left + x.Right != matchArr[z].Left + matchArr[z].Right).ToList();
         }
-        if (matchArr.Count > 4000)
-            Console.WriteLine("impossible");
+        //if (matchArr.Count > 4000)
+        //    Console.WriteLine("impossible");
 
         //var tmpListMatches = new Queue<TranslatorPair>(matchArr);
         var tmpListMatches = matchArr.ToList();
@@ -126,9 +126,9 @@ class Program
         //var testArr = matchArr.GroupBy(x => x.Right);
         //var testArr2 = matchArr.GroupBy(x => x.Left).OrderByDescending(x => x.Key).ToList();
         var tmpTest = new TranslatorPair();
-        matchArr.OrderByDescending(x => x.Right);
+        //matchArr.OrderByDescending(x => x.Right);
 
-        for (int l = 0; l < hiredTranslators / 2; l++)
+        for (int l = 0; l < tmpArray.Length; l++)
         {
             if (tmpListMatches.Count == 0)
             {
@@ -139,7 +139,15 @@ class Program
                 //    throw new Exception();
             }
             if (l == 0)
-                tmpArray[0] = tmpTest = tmpListMatches[index];
+                try
+                {
+                    tmpArray[0] = tmpTest = tmpListMatches[index];
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("impossible");
+                    Environment.Exit(0);
+                }
             else
                 //tmpArray[l] = tmpTest = tmpListMatches[0];
                 tmpArray[l] = tmpTest = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
@@ -149,7 +157,7 @@ class Program
 
         for (int i1 = 0; i1 < tmpArray.Length; i1++)
         {
-            TranslatorPair item = tmpArray[i1];
+            var item = tmpArray[i1];
             if (item != null)
                 Console.WriteLine($"{item.Left} {item.Right}");
         }
