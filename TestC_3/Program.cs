@@ -44,28 +44,28 @@ class Program
                 //{
                 if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
                 {
-                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
                 else
             if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
                 {
-                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
                 else
             if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
                 {
-                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
                 else
             if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
                 {
-                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
                 //}
             }
         }
 
-        matchArr = matchArr.Where(x => x.Left.ID != x.Right.ID).ToList();
+        matchArr = matchArr.Where(x => x.Left != x.Right).ToList();
         matchArr.TrimExcess();
 
         var tmpListMatches = matchArr.ToList();
@@ -85,7 +85,7 @@ class Program
                     tmpArray[m] = null;
                 }
 
-                tmpListMatches.RemoveAll(x => x.Left.ID == tmpArray[0].Left.ID || x.Right.ID == tmpArray[0].Right.ID || x.Left.ID == tmpArray[0].Right.ID || x.Right.ID == tmpArray[0].Left.ID);
+                tmpListMatches.RemoveAll(x => x.Left == tmpArray[0].Left || x.Right == tmpArray[0].Right || x.Left == tmpArray[0].Right || x.Right == tmpArray[0].Left);
                 tmpListMatches = tmpListMatches.Except(triedCombos).ToList();
                 l = 1;
 
@@ -108,13 +108,14 @@ class Program
                 tmpArray[l] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
                 triedCombos.Add(tmpArray[l]);
             }
-            tmpListMatches.RemoveAll(x => x.Left.ID == tmpArray[l].Left.ID || x.Right.ID == tmpArray[l].Right.ID || x.Left.ID == tmpArray[l].Right.ID || x.Right.ID == tmpArray[l].Left.ID);
+            tmpListMatches.RemoveAll(x => x.Left == tmpArray[l].Left || x.Right == tmpArray[l].Right || x.Left == tmpArray[l].Right || x.Right == tmpArray[l].Left);
         }
 
-        foreach (var item in tmpArray)
+        for (int i1 = 0; i1 < tmpArray.Length; i1++)
         {
+            TranslatorPair item = tmpArray[i1];
             if (item != null)
-                Console.WriteLine($"{item.Left.ID} {item.Right.ID}");
+                Console.WriteLine($"{item.Left} {item.Right}");
         }
     }
 
@@ -122,8 +123,8 @@ class Program
 
 internal class TranslatorPair
 {
-    public Translator Left { get; set; }
-    public Translator Right { get; set; }
+    public int Left { get; set; }
+    public int Right { get; set; }
 }
 
 class Translator
