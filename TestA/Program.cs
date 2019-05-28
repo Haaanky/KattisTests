@@ -8,7 +8,7 @@ class Program
         int i = 0;
         while ((line = Console.ReadLine()) != null)
         {
-            string[] split = line.Split(' ');
+            string[] split = line.Split();
             int startDayEarth = int.Parse(split[0]);
             int startDayMars = int.Parse(split[1]);
             int daysPast = 0;
