@@ -40,28 +40,22 @@ class Program
         {
             for (int k = 0; k < hiredTranslators; k++)
             {
-                //if (!matchArr.Contains(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] }) || !matchArr.Contains(new TranslatorPair { Right = translatorArray[j], Left = translatorArray[k] }))
-                //{
                 if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
                 {
                     matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
-                else
-            if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
+                else if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
                 {
                     matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
-                else
-            if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
+                else if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
                 {
                     matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
-                else
-            if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
+                else if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
                 {
                     matchArr.Add(new TranslatorPair { Left = translatorArray[j].ID, Right = translatorArray[k].ID });
                 }
-                //}
             }
         }
 
@@ -92,20 +86,17 @@ class Program
                 if (tmpListMatches.Count == 0)
                 {
                     tmpListMatches = matchArr.ToList();
-                    //triedCombos.RemoveAll(x => true);
                     triedCombos.Clear();
                     l = 0;
                     index++;
-                    //if (index >= matchArr.Count)
-                    //    break;
                 }
             }
             if (l == 0)
                 tmpArray[l] = tmpListMatches[index];
             else
             {
-                //tmpArray[l] = tmpListMatches[0];
-                tmpArray[l] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
+                tmpArray[l] = tmpListMatches[0];
+                //tmpArray[l] = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
                 triedCombos.Add(tmpArray[l]);
             }
             tmpListMatches.RemoveAll(x => x.Left == tmpArray[l].Left || x.Right == tmpArray[l].Right || x.Left == tmpArray[l].Right || x.Right == tmpArray[l].Left);
@@ -113,6 +104,7 @@ class Program
 
         for (int i1 = 0; i1 < tmpArray.Length; i1++)
         {
+            throw new Exception();
             TranslatorPair item = tmpArray[i1];
             if (item != null)
                 Console.WriteLine($"{item.Left} {item.Right}");
