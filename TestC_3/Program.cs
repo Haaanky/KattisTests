@@ -40,40 +40,42 @@ class Program
         {
             for (int k = 0; k < hiredTranslators; k++)
             {
-                if (!matchArr.Contains(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] }) || !matchArr.Contains(new TranslatorPair { Right = translatorArray[j], Left = translatorArray[k] }))
+                //if (!matchArr.Contains(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] }) || !matchArr.Contains(new TranslatorPair { Right = translatorArray[j], Left = translatorArray[k] }))
+                //{
+                if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
                 {
-                    if (translatorArray[j].FirstLanguage == translatorArray[k].FirstLanguage)
-                    {
-                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
-                    }
-                    else
-                if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
-                    {
-                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
-                    }
-                    else
-                if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
-                    {
-                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
-                    }
-                    else
-                if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
-                    {
-                        matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
-                    }
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
                 }
+                else
+            if (translatorArray[j].FirstLanguage == translatorArray[k].SecondLanguage)
+                {
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                }
+                else
+            if (translatorArray[j].SecondLanguage == translatorArray[k].SecondLanguage)
+                {
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                }
+                else
+            if (translatorArray[j].SecondLanguage == translatorArray[k].FirstLanguage)
+                {
+                    matchArr.Add(new TranslatorPair { Left = translatorArray[j], Right = translatorArray[k] });
+                }
+                //}
             }
         }
 
         matchArr = matchArr.Where(x => x.Left.ID != x.Right.ID).ToList();
+        matchArr.TrimExcess();
 
         var tmpListMatches = matchArr.ToList();
+        tmpListMatches.TrimExcess();
         var tmpArray = new TranslatorPair[hiredTranslators / 2];
         var index = 0;
         var rnd = new Random();
         var triedCombos = new List<TranslatorPair>();
 
-        for (int l = 0; tmpArray.Any(x => x == null) && l < tmpArray.Length; l++)
+        for (int l = 0; tmpArray.Any(x => x == null) /*&& l < tmpArray.Length*/; l++)
         {
             if (tmpListMatches.Count == 0)
             {
@@ -83,18 +85,19 @@ class Program
                     tmpArray[m] = null;
                 }
 
-                tmpListMatches.RemoveAll(x => x.Left.ID.Equals(tmpArray[0].Left.ID) || x.Right.ID.Equals(tmpArray[0].Right.ID) || x.Left.ID.Equals(tmpArray[0].Right.ID) || x.Right.ID.Equals(tmpArray[0].Left.ID));
+                tmpListMatches.RemoveAll(x => x.Left.ID == tmpArray[0].Left.ID || x.Right.ID == tmpArray[0].Right.ID || x.Left.ID == tmpArray[0].Right.ID || x.Right.ID == tmpArray[0].Left.ID);
                 tmpListMatches = tmpListMatches.Except(triedCombos).ToList();
                 l = 1;
 
                 if (tmpListMatches.Count == 0)
                 {
                     tmpListMatches = matchArr.ToList();
-                    triedCombos.RemoveAll(x => true);
+                    //triedCombos.RemoveAll(x => true);
+                    triedCombos.Clear();
                     l = 0;
                     index++;
-                    if (index >= matchArr.Count)
-                        break;
+                    //if (index >= matchArr.Count)
+                    //    break;
                 }
             }
             if (l == 0)
