@@ -85,6 +85,8 @@ class Program
 
         //var tmpListMatches = new Queue<TranslatorPair>(matchArr);
         var tmpListMatches = matchArr.ToList();
+        if (matchArr.Count == 0)
+            throw new Exception();
         var tmpArray = new TranslatorPair[hiredTranslators / 2];
         var index = 0;
         var rnd = new Random();
@@ -135,6 +137,8 @@ class Program
                 tmpListMatches = matchArr.ToList();
                 l = 0;
                 index++;
+                if (index >= tmpListMatches.Count)
+                    index = 0;
                 //if (languagesSpoken > 99)
                 //    throw new Exception();
             }
@@ -145,7 +149,10 @@ class Program
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("impossible");
+                    if (index > tmpListMatches.Count - 1)
+                        Console.WriteLine("impossible");
+                    if (tmpArray[0] == null)
+                        throw new Exception();
                     Environment.Exit(0);
                 }
             else
