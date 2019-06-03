@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,34 +11,38 @@ namespace Phonelist
     {
         static void Main(string[] args)
         {
-            var inputs = int.Parse(Console.ReadLine());
+            int inputs = int.Parse(Console.ReadLine());
+            CompareInfo compare = CultureInfo.InvariantCulture.CompareInfo;
             while (inputs-- != 0)
             {
-                var phoneNumbers = int.Parse(Console.ReadLine());
-                var numberArr = new string[phoneNumbers];
+                int phoneNumbers = int.Parse(Console.ReadLine());
+                //var numberArr = new string[phoneNumbers];
+                var numberArr = new List<string>();
 
-                if (phoneNumbers > 9999)
-                    throw new Exception();
                 for (int j = 0; j < phoneNumbers; j++)
                 {
-                    numberArr[j] = Console.ReadLine();
+                    numberArr.Add(Console.ReadLine());
                 }
 
-
-                Array.Sort(numberArr);
+                numberArr.Sort();
                 //numberArr.OrderBy(x => x);
                 bool containPrefix = true;
-
+                //var tmpArr = numberArr.ToArray();
+                //Array.Sort(tmpArr);
                 for (int j = 1; j < phoneNumbers; j++)
                 {
-                    if (numberArr[j].StartsWith(numberArr[j - 1]))
-                    {
-                        containPrefix = false;
-                        break;
-                    }
+                    if (numberArr[j].Length > numberArr[j - 1].Length)
+                        if (compare.IsPrefix(numberArr[j], numberArr[j - 1]))
+                        {
+                            containPrefix = false;
+                            break;
+                        }
+                    //if (tmpArr[j].StartsWith(tmpArr[j - 1]))
+                    //{
+                    //    containPrefix = false;
+                    //    break;
+                    //}
                 }
-                if (phoneNumbers > 9999)
-                    throw new Exception();
                 Console.WriteLine(containPrefix ? "YES" : "NO");
             }
         }
