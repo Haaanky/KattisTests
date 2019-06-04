@@ -28,7 +28,8 @@ namespace Virtualfriends
                         var tmp = friendArray[firstName];
                         friendArray[firstName] += friendArray[secondName];
                         Console.WriteLine(friendArray[secondName] + friendArray[firstName]);
-                        friendArray[secondName] += friendArray[firstName] - tmp;
+                        //throw new Exception();
+                        //friendArray[secondName] += friendArray[firstName] - tmp;
                     }
                     else if (friendArray.Keys.Contains(firstName) && !friendArray.Keys.Contains(secondName))
                     {
