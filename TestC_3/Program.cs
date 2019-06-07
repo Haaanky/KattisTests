@@ -143,22 +143,24 @@ class Program
                 //    throw new Exception();
             }
             if (l == 0)
-                try
-                {
+                //try
+                //{
+                //    tmpArray[0] = tmpTest = tmpListMatches[index];
+                //}
+                //catch (Exception)
+                //{
+                //    if (index > tmpListMatches.Count - 1)
+                //        Console.WriteLine("impossible");
+                //    if (tmpArray[0] == null)
+                //        throw new Exception();
+                //    Environment.Exit(0);
+                //}
                     tmpArray[0] = tmpTest = tmpListMatches[index];
-                }
-                catch (Exception)
-                {
-                    if (index > tmpListMatches.Count - 1)
-                        Console.WriteLine("impossible");
-                    if (tmpArray[0] == null)
-                        throw new Exception();
-                    Environment.Exit(0);
-                }
             else
                 //tmpArray[l] = tmpTest = tmpListMatches[0];
                 tmpArray[l] = tmpTest = tmpListMatches[rnd.Next(0, tmpListMatches.Count)];
 
+            tmpListMatches = tmpListMatches.FindAll(x => x.Left != tmpTest.Left && x.Left != tmpTest.Right && x.Right != tmpTest.Left && x.Right != tmpTest.Right);
             tmpListMatches = tmpListMatches.FindAll(x => x.Left != tmpTest.Left && x.Left != tmpTest.Right && x.Right != tmpTest.Left && x.Right != tmpTest.Right);
         }
 

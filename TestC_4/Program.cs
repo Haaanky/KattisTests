@@ -78,6 +78,7 @@ class Program
 
         var tmpTest = new TranslatorPair();
         var result = new List<TranslatorPair>();
+        var tmpBranch = new List<List<TranslatorPair>>();
 
         for (int l = 0; result.Count != hiredTranslators / 2; l++)
         {
@@ -121,10 +122,18 @@ class Program
         //    if (item != null)
         //        Console.WriteLine($"{item.Left} {item.Right}");
         //}
-        IEnumerable<TranslatorPair> GetPairs(TranslatorPair arg)
+        IEnumerable<TranslatorPair> GetPairs(TranslatorPair arg, int level)
         {
-            tmpListMatches = tmpListMatches.FindAll(x => x.Left != arg.Left && x.Left != arg.Right && x.Right != arg.Left && x.Right != arg.Right);
-            return tmpListMatches;
+            if (level == 0 && tmpBranch.Count != 0)
+                return tmpBranch[level].First(x => x.Left != arg.Left && x.Left != arg.Right && x.Right != arg.Left && x.Right != arg.Right);
+            if (level == 0)
+                tmpBranch.Add(tmpListMatches.First(x => x.Left != arg.Left && x.Left != arg.Right && x.Right != arg.Left && x.Right != arg.Right));
+            else
+                tmpBranch.Add(tmpBranch[level - 1].First(x => x.Left != arg.Left && x.Left != arg.Right && x.Right != arg.Left && x.Right != arg.Right));
+            return tmpBranch[level];
+            //tmpListMatches = tmpListMatches.FindAll(x => x.Left != arg.Left && x.Left != arg.Right && x.Right != arg.Left && x.Right != arg.Right);
+            //return tmpListMatches.FindAll(x => x.Left != arg.Left && x.Left != arg.Right && x.Right != arg.Left && x.Right != arg.Right);
+            //return tmpListMatches;
         }
     }
 
@@ -149,23 +158,30 @@ class Program
     /// This function defers traversal until needed and streams the
     /// results.</para>
     /// </remarks>
-    public static IEnumerable<T> TraverseDepthFirst<T>(T root, Func<T, IEnumerable<T>> childrenSelector)
+    public static IEnumerable<T> TraverseDepthFirst<T>(T root, Func<T, int, IEnumerable<T>> childrenSelector)
     {
         if (childrenSelector == null) throw new ArgumentNullException(nameof(childrenSelector));
-
+        var level = 0;
         return _(); IEnumerable<T> _()
         {
             var stack = new Stack<T>();
             stack.Push(root);
-
             while (stack.Count != 0)
             {
                 var current = stack.Pop();
                 yield return current;
                 // because a stack pops the elements out in LIFO order, we need to push them in reverse
                 // if we want to traverse the returned list in the same order as was returned to us
-                foreach (var child in childrenSelector(current).Reverse())
+                var children = childrenSelector(current, level);
+                foreach (var child in children.Reverse())
                     stack.Push(child);
+                if (children.Count() != 0)
+                {
+                    level++;
+                    yield return default;
+                }
+                else
+                    level = 0;
             }
         }
     }
