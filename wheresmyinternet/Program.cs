@@ -52,14 +52,14 @@ namespace wheresmyinternet
                 }
                 return;
             }
-
+            housePairs.OrderBy(a => a.FirstHouse).ThenBy(a => a.SecondHouse);
             for (int i = 0; i < numberOfCables; i++)
             {
                 var housePair = housePairs.Dequeue();
                 if (housePairs.Count == 0)
                 {
-                    if (numberOfCables > 1)
-                        throw new Exception();
+                    //if (numberOfCables > 1)
+                    //    throw new Exception();
                     Console.WriteLine("Connected");
                     return;
                 }
