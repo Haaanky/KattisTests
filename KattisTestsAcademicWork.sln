@@ -61,6 +61,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "simon", "simon\simon.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bookingaroom", "bookingaroom\bookingaroom.csproj", "{6A7718BB-7AAF-48D3-8D7B-7F3AB13A39A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestC_5", "TestC_5\TestC_5.csproj", "{E24D436F-05FC-43D2-A6AD-86F2CB205CE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp6", "ConsoleApp6\ConsoleApp6.csproj", "{E6056301-FCF0-42A6-8E9D-DB77F2C1E586}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -183,6 +187,14 @@ Global
 		{6A7718BB-7AAF-48D3-8D7B-7F3AB13A39A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A7718BB-7AAF-48D3-8D7B-7F3AB13A39A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A7718BB-7AAF-48D3-8D7B-7F3AB13A39A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E24D436F-05FC-43D2-A6AD-86F2CB205CE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E24D436F-05FC-43D2-A6AD-86F2CB205CE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E24D436F-05FC-43D2-A6AD-86F2CB205CE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E24D436F-05FC-43D2-A6AD-86F2CB205CE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6056301-FCF0-42A6-8E9D-DB77F2C1E586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6056301-FCF0-42A6-8E9D-DB77F2C1E586}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6056301-FCF0-42A6-8E9D-DB77F2C1E586}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6056301-FCF0-42A6-8E9D-DB77F2C1E586}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
